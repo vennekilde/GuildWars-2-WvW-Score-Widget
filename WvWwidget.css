@@ -7,6 +7,10 @@ and open the template in the editor.
     Created on : 06-03-2015, 22:24:01
     Author     : jeppe
 */
+.wvw-widget {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
 
 .wvw-widget.wvw-widget-small{
     max-width: calc((100% - 1200px) / 2);
@@ -43,8 +47,12 @@ and open the template in the editor.
     position: absolute;
     top: -10px;
     left: 0px;
-    width: 350px;
+    width: 140px;
     height: 130px;
+}
+.wvw-widget-medium .wvw-canvas-holder-inner {
+    width: 117px;
+    height: 117px;
 }
 .wvw-widget-small .wvw-canvas-holder {
     background-size: 58px;
@@ -62,7 +70,7 @@ and open the template in the editor.
 .wvw-widget-medium .wvw-ppt-canvas {
     position: absolute;
     top: 9px; 
-    left: -108px; 
+    left: 9px;
     z-index: 5;
 }
 .wvw-widget-small .wvw-ppt-canvas {

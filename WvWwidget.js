@@ -4,6 +4,7 @@
  * @author jeppe
  */
 
+//Ensure only one instance is loaded
 if(typeof WvWWidgetLoaded === "undefined" || !WvWWidgetLoaded){
     WvWWidgetLoaded = true;
 
@@ -134,38 +135,43 @@ if(typeof WvWWidgetLoaded === "undefined" || !WvWWidgetLoaded){
                 greenPattern = contextCanvas.createPattern(imageGreen, 'no-repeat');
             }
             //Initialize data
-            var wvwData = [
-                {
-                    value: 100,
-                    color: redPattern,
-                    //highlight: "#D79390",
-                    label: "Red"
-                },
-                {
-                    value: 100,
-                    color: bluePattern,
-                    //highlight: "#8CA6D0",
-                    label: "Blue"
-                },
-                {
-                    value: 100,
-                    color: greenPattern,
-                    //highlight: "rgba(103, 178, 8, 0.1)",
-                    label: "Green"
-                }
-            ];
+            var wvwData = {
+                labels: [
+                    "Red",
+                    "Blue",
+                    "Green"
+                ],
+                datasets: [
+                    {
+                        data: [100, 100, 100],
+                        backgroundColor: [
+                            redPattern,
+                            bluePattern,
+                            greenPattern,
+                        ],
+                        borderColor : 'rgba(0,0,0,1)',
+                    }
+                ]
+            };
 
             //Chart config
             var chartConfig = {
-                responsive : true, 
-                percentageInnerCutout : 0, 
-                segmentStrokeColor : "#000",
-                animationEasing : "",
+                borderWidth: 3,
+                type: "pie",
                 animationSteps : (window.mobilecheck() || small) ? 1 : 40,
-                showTooltips: !small
+                data: wvwData,
+                options: {
+                    tooltips:{
+                        enabled: !small,
+                    },
+                    legend: {
+                        display: false,
+                        responsive : true, 
+                    }
+                },
             };
             //Create instance of chart
-            var chart = new Chart(contextCanvas).Doughnut(wvwData, chartConfig);
+            var chart = new Chart(contextCanvas, chartConfig);
             chart["isSmall"] = small;
             window.wvwPPTCanvases.push(chart);
         });
@@ -329,13 +335,13 @@ if(typeof WvWWidgetLoaded === "undefined" || !WvWWidgetLoaded){
         for(var i = 0; i < window.wvwPPTCanvases.length; i++){
             var canvas = window.wvwPPTCanvases[i];
             if(!canvas["isSmall"]){
-                canvas.segments[0].label = world_names[match["red_world_id"]];
-                canvas.segments[1].label = world_names[match["blue_world_id"]];
-                canvas.segments[2].label = world_names[match["green_world_id"]];
+                canvas.data.labels[0] = world_names[match["red_world_id"]][0];
+                canvas.data.labels[1] = world_names[match["blue_world_id"]][0];
+                canvas.data.labels[2] = world_names[match["green_world_id"]][0];
             }
-            canvas.segments[0].value = ppt[0];
-            canvas.segments[1].value = ppt[1];
-            canvas.segments[2].value = ppt[2];
+            canvas.data.datasets[0].data[0] = ppt[0];
+            canvas.data.datasets[0].data[1] = ppt[1];
+            canvas.data.datasets[0].data[2] = ppt[2];
             canvas.update();
         }
     }
@@ -379,9 +385,9 @@ if(typeof WvWWidgetLoaded === "undefined" || !WvWWidgetLoaded){
         $(".wvw-score-red").width(100 * (score[0] / maxScore) + "%");
         $(".wvw-score-blue").width(100 * (score[1] / maxScore) + "%");
         $(".wvw-score-green").width(100 * (score[2] / maxScore) + "%");
-        $(".wvw-score-bar-text-red").html(world_names[match["red_world_id"]]);
-        $(".wvw-score-bar-text-blue").html(world_names[match["blue_world_id"]]);
-        $(".wvw-score-bar-text-green").html(world_names[match["green_world_id"]]);
+        $(".wvw-score-bar-text-red").html(world_names[match["red_world_id"]][1]);
+        $(".wvw-score-bar-text-blue").html(world_names[match["blue_world_id"]][1]);
+        $(".wvw-score-bar-text-green").html(world_names[match["green_world_id"]][1]);
 
         //Distingish easily between home server and other server by making home server bold
 
@@ -572,56 +578,56 @@ if(typeof WvWWidgetLoaded === "undefined" || !WvWWidgetLoaded){
     //Pre-saved list of server names to avoid contacting the GW2 api each time to fetch
     //the server names
     var world_names = {
-        1001: "Anvil Rock",
-        1002: "Borlis Pass",
-        1003: "Yak's Bend",
-        1004: "Henge of Denravi",
-        1005: "Maguuma",
-        1006: "Sorrow's Furnace",
-        1007: "Gate of Madness",
-        1008: "Jade Quarry",
-        1009: "Fort Aspenwood",
-        1010: "Ehmry Bay",
-        1011: "Stormbluff Isle",
-        1012: "Darkhaven",
-        1013: "Sanctum of Rall",
-        1014: "Crystal Desert",
-        1015: "Isle of Janthir",
-        1016: "Sea of Sorrows",
-        1017: "Tarnished Coast",
-        1018: "Northern Shiverpeaks",
-        1019: "Blackgate",
-        1020: "Ferguson's Crossing",
-        1021: "Dragonbrand",
-        1022: "Kaineng",
-        1023: "Devona's Rest",
-        1024: "Eredon Terrace",
-        2001: "Fissure of Woe",
-        2002: "Desolation",
-        2003: "Gandara",
-        2004: "Blacktide",
-        2005: "Ring of Fire",
-        2006: "Underworld",
-        2007: "Far Shiverpeaks",
-        2008: "Whiteside Ridge",
-        2009: "Ruins of Surmia",
-        2010: "Seafarer's Rest",
-        2011: "Vabbi",
-        2012: "Piken Square",
-        2013: "Aurora Glade",
-        2014: "Gunnar's Hold",
-        2101: "Jade Sea [FR]",
-        2102: "Fort Ranik [FR]",
-        2103: "Augury Rock [FR]",
-        2104: "Vizunah Square [FR]",
-        2105: "Arborstone [FR]",
-        2201: "Kodash [DE]",
-        2202: "Riverside [DE]",
-        2203: "Elona Reach [DE]",
-        2204: "Abaddon's Mouth [DE]",
-        2205: "Drakkar Lake [DE]",
-        2206: "Miller's Sound [DE]",
-        2207: "Dzagonur [DE]",
-        2301: "Baruch Bay [SP]"
+        1001: ["AR", "Anvil Rock"],
+        1002: ["BP", "Borlis Pass"],
+        1003: ["YB", "Yak's Bend"],
+        1004: ["HoD", "Henge of Denravi"],
+        1005: ["Maguuma", "Maguuma"],
+        1006: ["SF", "Sorrow's Furnace"],
+        1007: ["GoM", "Gate of Madness"],
+        1008: ["JQ", "Jade Quarry"],
+        1009: ["FA", "Fort Aspenwood"],
+        1010: ["EB", "Ehmry Bay"],
+        1011: ["SI", "Stormbluff Isle"],
+        1012: ["DH", "Darkhaven"],
+        1013: ["SoR", "Sanctum of Rall"],
+        1014: ["CD", "Crystal Desert"],
+        1015: ["IoJ", "Isle of Janthir"],
+        1016: ["SoS", "Sea of Sorrows"],
+        1017: ["TC", "Tarnished Coast"],
+        1018: ["NSP", "Northern Shiverpeaks"],
+        1019: ["BG", "Blackgate"],
+        1020: ["FC", "Ferguson's Crossing"],
+        1021: ["DB", "Dragonbrand"],
+        1022: ["Kaineng", "Kaineng"],
+        1023: ["DR", "Devona's Rest"],
+        1024: ["ET", "Eredon Terrace"],
+        2001: ["FoW", "Fissure of Woe"],
+        2002: ["Deso", "Desolation"],
+        2003: ["Gandara", "Gandara"],
+        2004: ["Blacktide", "Blacktide"],
+        2005: ["RoF", "Ring of Fire"],
+        2006: ["UW", "Underworld"],
+        2007: ["FSP", "Far Shiverpeaks"],
+        2008: ["WR", "Whiteside Ridge"],
+        2009: ["RoS", "Ruins of Surmia"],
+        2010: ["SFR", "Seafarer's Rest"],
+        2011: ["Vabbi", "Vabbi"],
+        2012: ["PS", "Piken Square"],
+        2013: ["AG", "Aurora Glade"],
+        2014: ["GH", "Gunnar's Hold"],
+        2101: ["JS [FR]", "Jade Sea [FR]"],
+        2102: ["FR [FR]", "Fort Ranik [FR]"],
+        2103: ["AR [FR]", "Augury Rock [FR]"],
+        2104: ["VZ [FR]", "Vizunah Square [FR]"],
+        2105: ["AS [FR]", "Arborstone [FR]"],
+        2201: ["Kodash [DE]", "Kodash [DE]"],
+        2202: ["RS [DE]", "Riverside [DE]"],
+        2203: ["ER [DE]", "Elona Reach [DE]"],
+        2204: ["AM [DE]", "Abaddon's Mouth [DE]"],
+        2205: ["DL [DE]", "Drakkar Lake [DE]"],
+        2206: ["MS [DE]", "Miller's Sound [DE]"],
+        2207: ["DZ [DE]", "Dzagonur [DE]"],
+        2301: ["BB [SP]", "Baruch Bay [SP]"]
     };
 }

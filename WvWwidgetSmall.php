@@ -24,7 +24,7 @@ echo '
         <div class="wvw-label">Point Per Tick</div>
         <div class="wvw-canvas-holder wvw-component theme_header_style">
             <div class="wvw-canvas-holder2">
-                <canvas class="wvw-ppt-canvas" width="52" height="52"></canvas>
+                <canvas class="wvw-ppt-canvas" width="50" height="50"></canvas>
             </div>
         </div>
         <div class="wvw-ppt-container wvw-component theme_header_style">
