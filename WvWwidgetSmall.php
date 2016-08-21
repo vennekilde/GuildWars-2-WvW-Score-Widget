@@ -6,16 +6,13 @@
  * @author jeppe
  */
 
-$version = "1.4";
-echo '<script type="text/javascript">//<![CDATA[
-if(!window.jQuery)
-{var script=document.createElement("script");script.type="text/javascript";script.async=false;script.src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js";var oScripts=document.getElementsByTagName("script");var s=oScripts[0];s.parentNode.insertBefore(script,s);}
-//]]></script>
-';
-echo '<link rel="stylesheet" type="text/css" href="fsp/wvw/WvWwidget.css?v='.$version.'"/>';
-echo "<script src='fsp/wvw/lib/Chart.min.js'></script>";
-echo "<script src='fsp/wvw/lib/gw2-api-wrapper.js'></script>";
-echo "<script src='fsp/wvw/WvWwidget.js?v=".$version."'></script>";
+$widgetPath = "/fsp/wvw";
+$version = "1.5";
+echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>';
+echo "<link rel='stylesheet' type='text/css' href='$widgetPath/WvWwidget.css?v=$version'>";
+echo "<script src='$widgetPath/lib/Chart.min.js'></script>";
+echo "<script src='$widgetPath/lib/gw2-api-wrapper.js'></script>";
+echo "<script src='$widgetPath/WvWwidget.js?v=$version'></script>";
 echo '
 
 <div class="wvw-widget wvw-widget-small">
