@@ -1,5 +1,7 @@
-# GuildWars-2-WvW-Score-Widget
+# GuildWars 2 WvW Score Widget
 A Widget for displaying GW2 WvW Score data, written in PHP and JQuery
+
+This has been developed and tested on [https://farshiverpeaks.com](https://farshiverpeaks.com "farshiverpeaks.com") and can be seen in use there
 
 There are two version of the widget
 ## Standard Version ##
