@@ -9,7 +9,7 @@ The standard version is formatted as a standard sized widget
 
 Source: WvWWidget.php
 
-![WvW Widget Preview](http://i.imgur.com/IRkMraI.png)
+![WvW Widget Preview](http://i.imgur.com/1hsUwRi.png)
 
 ## Small Version ##
 A small version has also been created for the purpose of being displayed in the top of the page at all time
@@ -19,6 +19,10 @@ Source: WvWWidgetSmall.php
 ![WvW Widget Small Preview](http://i.imgur.com/31VVihA.png)
 
 ## Configuration ##
+First you need to insert the path for where the source is placed inside WvWWidget.php & WvWWidgetSmall.php
+
+$widgetPath = "Your path here"
+
 Inside the WvWWidget.js file, you will at the top see
 
     /************/
