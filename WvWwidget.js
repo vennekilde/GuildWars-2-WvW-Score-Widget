@@ -7,9 +7,21 @@
 //Ensure only one instance is loaded
 if(typeof WvWWidgetLoaded === "undefined" || !WvWWidgetLoaded){
     WvWWidgetLoaded = true;
+    
+    /************/
+    /** CONFIG **/
+    /************/
 
     //World to show matchup details from
     var world = 2007; //2007 == Far Shiverpeaks
+
+    //How often the widget should refresh its data in milliseconds
+    var REFRESH_TIME = 15000; //const
+    
+    /****************/
+    /** END CONFIG **/
+    /****************/
+
     //GW2 API library
     var GW2Lib;
     //Calculated ppt array
@@ -30,9 +42,6 @@ if(typeof WvWWidgetLoaded === "undefined" || !WvWWidgetLoaded){
     //Amount of images that has finished loading
     var imagesLoaded = 0;
     var TOTAL_IMAGES = 6; //const
-    //How often the widget should refresh its data
-    var REFRESH_TIME = 15000; //const
-
     //Wait till document is loaded
     document.addEventListener('DOMContentLoaded', function() {
         preInit();
